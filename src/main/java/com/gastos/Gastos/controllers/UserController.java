@@ -1,6 +1,7 @@
 package com.gastos.Gastos.controllers;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gastos.Gastos.model.User;
 import com.gastos.Gastos.service.UserService;
+import com.gastos.Gastos.util.QueryResult;
 import com.gastos.Gastos.util.RestResponse;
 
 @RestController
@@ -38,6 +40,11 @@ public class UserController {
 		this.userService.save(user);
 		
 		return new RestResponse(HttpStatus.OK.value(),"Operación realizada con éxito");
+	}
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public List<User> getUsers(){
+		return this.userService.findAll();
 	}
 	
 	private boolean validate(User user){
